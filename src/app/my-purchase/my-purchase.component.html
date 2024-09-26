@@ -1,0 +1,54 @@
+<body>
+<app-header></app-header>
+<div class="purchase-container" >
+  <h2 class="main-title">I miei acquisti</h2>
+
+  <div class="purchase-summary">
+    <div class="summary-card">
+      <i class="fas fa-shopping-cart"></i>
+      <h3>Numero totale di acquisti</h3>
+      <p class="summary-value">{{ nPurchase }}</p>
+    </div>
+    <div class="summary-card">
+      <i class="fas fa-euro-sign"></i>
+      <h3>Totale speso</h3>
+      <p class="summary-value">{{ totalSpent | currency:'EUR' }}</p>
+    </div>
+    <div class="summary-card reimbursement-card">
+      <i class="fas fa-euro-sign"></i>
+      <h3>Bilancio: </h3>
+      <p class="summary-value"> {{ this.balance | currency:'EUR' }}</p>
+      <div class="reimbursement-form">
+        <input type="number" [(ngModel)]="redeemValue" placeholder="Importo da riscattare">
+        <button (click)="redeemBalance()">Riscatta</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="purchase-content">
+    <div class="pie-chart-container" >
+      <canvas #pieChart></canvas>
+    </div>
+
+    <div class="purchase-list" *ngIf="purchaseAvailable">
+      <div class="purchase-item" *ngFor="let purchase of subPurchases">
+        <div class="purchase-header" [style.backgroundColor]="productColors[purchase.product.name] || '#f0f0f0'">
+          <img [src]="productImages[purchase.product.name]" [alt]="purchase.product.name" class="product-logo">
+          <h3>{{ purchase.product.name }}</h3>
+          <span class="purchase-type">{{ purchase.product.type }}</span>
+        </div>
+        <div class="purchase-body">
+          <p class="purchase-price">{{ purchase.price | currency:'EUR' }}</p>
+          <p class="purchase-date">Data di acquisto: {{ getFormattedDate(purchase.purchaseTime.toString()) }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="popup" [class.show]="showPopup">
+  <div id="loader" *ngIf="!redeemFailed"></div>
+  <div id="checkmark" *ngIf="redeemFailed">x</div>
+  <span id="message">{{ popupMessage }}</span>
+</div>
+</body>

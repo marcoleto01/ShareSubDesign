@@ -1,0 +1,55 @@
+
+<app-header></app-header>
+<div class="container">
+  <div class="sidebar">
+    <h2>Filtri</h2>
+    <div class="filter-group">
+      <h3>Tipo</h3>
+      <div class="filter-buttons">
+        <button class="filter-button" (click)="setFilter('Musica')" [class.active-musica]="activeFilter === 'Musica'">Musica</button>
+        <button class="filter-button" (click)="setFilter('Film')" [class.active-film]="activeFilter === 'Film'">Film</button>
+        <button class="filter-button" (click)="setFilter('Libro')" [class.active-libri]="activeFilter === 'Libro'">Libri</button>
+        <button class="filter-button" (click)="setFilter('Videogioco')" [class.active-vpn]="activeFilter === 'Videogioco'">Videogiochi</button>
+        <button class="filter-button" (click)="setFilter('IA')" [class.active-vpn]="activeFilter === 'IA'">IA</button>
+
+      </div>
+    </div>
+    <div class="filter-group">
+      <h3>Prezzo massimo</h3>
+      <input type="range" id="priceRange" [(ngModel)]="maxPrice" min="0" max="10" step="0.5">
+      <span>€{{ maxPrice }}</span>
+    </div>
+    <button class="apply-filters-btn" (click)="applyFilters()">Applica filtri</button>
+  </div>
+
+  <div class="main-content">
+    <h1>Catalogo</h1>
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Cerca prodotti...">
+      <button class="search-btn" (click)="search()">
+        <i class="material-icons">search</i>
+      </button>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-card" *ngFor="let product of filteredProducts">
+        <div class="image-container">
+          <img [src]="getProductImage(product.productAssociated.name)" [alt]="product.productAssociated.name" class="product-image">
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">{{ product.productAssociated.name }}</h3>
+          <div class="product-description">
+            <p>{{ product.productAssociated.description }}</p>
+          </div>
+          <p class="product-detail">Host: {{ product.hostedBy.email }}</p>
+          <p class="product-detail">Data inizio host: {{ getFormattedDate(product.lastRenewDate.toString()) }}</p>
+          <p class="product-detail">
+            <i class="material-icons">person</i> {{ product.subUsers }} utenti
+          </p>
+          <p class="product-detail">Prezzo per utente: €{{ product.productAssociated.pricePerUser }}</p>
+        </div>
+        <button class="buy-btn" (click)="addSub(product)" >Procedi all'acquisto</button>
+      </div>
+    </div>
+  </div>
+</div>

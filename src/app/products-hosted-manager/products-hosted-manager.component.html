@@ -1,0 +1,87 @@
+<body>
+<app-header></app-header>
+<div class="container flex items-center justify-center min-h-screen bg-gray-100" *ngIf="!showContent">
+  <mat-card class="max-w-md w-full p-8 bg-white rounded-lg shadow-lg text-center">
+    <mat-card-header>
+      <mat-card-title>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">Al momento non sei host di nessun prodotto</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="text-gray-600 mb-6">Clicca il bottone e inizia ora!</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" routerLink="/products" class="w-full py-2">
+        <mat-icon>add</mat-icon>
+        Crea il tuo abbonamento
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<div class="products-container" *ngIf="showContent">
+  <div *ngFor="let info of productHostedInfos" class="product-card" [class.expanded]="expandedCardId === info.id" (click)="selectProductHostedInfo(info)">
+    <div class="product-basic-info">
+      <div class="product-details">
+        <h2>{{info.productHosted.productAssociated.name}}</h2>
+        <div class="date-box">
+          <p><strong>Start Date:</strong> {{ info.productHosted.hostingStartDate | date }}</p>
+          <p><strong>Last Renew:</strong> {{ info.productHosted.lastRenewDate | date }}</p>
+          <p><strong>Months of Use:</strong> {{ getMonthsOfUse(info.productHosted.hostingStartDate, info.productHosted.lastRenewDate) }}</p>
+        </div>
+      </div>
+      <div class="image-container">
+        <img [src]="getProductImage(info.productHosted.productAssociated.name)" alt="Product logo">
+      </div>
+      <button   class="expand-button" (click)="toggleExpand(info.id)">▼</button>
+    </div>
+
+    <div class="expanded-content">
+      <div class="info-box">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input  type="text" id="username" [(ngModel)]="newUsers[info.id]">
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <div class="password-input">
+            <input [type]="showPassword ? 'text' : 'password'" id="password" [(ngModel)]="newPasswords[info.id]">
+            <button class="toggle-password" (click)="togglePasswordVisibility()">
+              {{ showPassword ? 'Hide' : 'Show' }} Password
+            </button>
+          </div>
+          <button (click)="changeSettings(info.id)">Save Changes</button>
+        </div>
+        <div class="form-group checkbox-wrapper">
+          <label class="switch">
+            <input (click)="continueToHost(info.productHosted.id)" type="checkbox" [(ngModel)]="info.productHosted.continueToHost">
+            <span class="slider"></span>
+          </label>
+          <span>Auto Renew</span>
+        </div>
+      </div>
+
+      <div class="chat-box">
+        <div class="chat-container">
+          <h3>Support Chat</h3>
+          <div class="chat-messages" #chatMessages>
+            <div *ngFor="let message of messages" [ngClass]="{'sent': message.sender.email === this.email, 'received': message.sender.email !== this.email}">
+              <p class="sender">{{ message.sender.email }}</p>
+              <p class="content">{{ message.content }}</p>
+              <p class="date">{{ message.date | date:'short' }}</p>
+            </div>
+          </div>
+          <div class="chat-input">
+            <input type="text" [(ngModel)]="newMessage" placeholder="Type your message...">
+            <button (click)="sendMessage(info)">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="popup" [class.show]="showPopup">
+  <div id="loader" *ngIf="!changesCompleted"></div>
+  <div id="checkmark" *ngIf="changesCompleted">✓</div>
+  <span id="message">{{ popupMessage }}</span>
+</div>
+</body>

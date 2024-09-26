@@ -1,0 +1,80 @@
+<body>
+  <app-header></app-header>
+  <div class="container" *ngIf="noElement">
+    <div class="no-subs">
+      <h2>No Subscriptions</h2>
+      <p>You don't have any subscriptions yet. Click the button below to add a new one.</p>
+      <button mat-raised-button color="primary" routerLink="/add-sub">Add Subscription</button>
+    </div>
+  </div>
+  <div class="container" *ngIf="!noElement">
+    <div class="subs">
+      <h2>Subscriptions</h2>
+      <div class="sub-list">
+        <div *ngFor="let sub of subscriptions" class="sub-card" (click)="selectSubscription(sub)"
+             [style.backgroundColor]="getProductColor(sub.productHostedInfo.productHosted.productAssociated.name)">
+          <div class="image-container">
+            <img [src]="getProductImage(sub.productHostedInfo.productHosted.productAssociated.name)"
+                 [alt]="sub.productHostedInfo.productHosted.productAssociated.name">
+          </div>
+          <div class="sub-info">
+            <h3>{{ sub.productHostedInfo.productHosted.productAssociated.name }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedSubscription" class="content">
+      <div class="infoProduct">
+        <div class="subscription-details">
+          <div class="action-row">
+            <div class="checkbox-wrapper">
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]='selectedSubscription.renew' (change)='renewSubscription()' >
+                <span class="slider round"></span>
+              </label>
+              <span>Auto Renew</span>
+            </div>
+          </div>
+          <div class="detail-row">
+            <p><strong>Ultimo Rinnovo:</strong>  {{getFormattedDate(selectedSubscription.productHostedInfo.productHosted.lastRenewDate)  }}</p>
+          </div>
+          <div class="detail-row" >
+            <p><strong>Ultimo Rinnovo:</strong>  {{newDate.toISOString().split('T')[0]}}</p>
+          </div>
+        </div>
+        <div class="accessInfo">
+          <div class="login-details">
+            <label><mat-icon>person</mat-icon> Username:</label>
+            <input type="text" [value]="selectedSubscription.productHostedInfo.loginUserInformation" readonly>
+          </div>
+          <div class="login-details password-container">
+            <label><mat-icon>lock</mat-icon> Password:</label>
+            <input [type]="showPassword ? 'text' : 'password'" [value]="selectedSubscription.productHostedInfo.loginPasswordInformation" readonly>
+            <button mat-icon-button (click)="togglePassword()">
+              <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <button mat-icon-button (click)="copyPassword()">
+              <mat-icon>content_copy</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-container">
+        <h3>Support Chat</h3>
+        <div class="chat-messages">
+          <div *ngFor="let message of messages" [ngClass]="{'sent': message.sender.email === selectedSubscription.user.email, 'received': message.sender.email !== selectedSubscription.user.email}">
+            <p class="user-email">{{ message.sender.email }}</p>
+            <p class="message-content">{{ message.content }}</p>
+            <p class="message-date">{{ message.date | date:'short' }}</p>
+          </div>
+        </div>
+        <div class="chat-input">
+          <input type="text" placeholder="Type your message..." [(ngModel)]="newMessage" />
+          <button (click)="sendMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

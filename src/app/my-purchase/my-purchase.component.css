@@ -1,0 +1,278 @@
+.purchase-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+.main-title {
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.purchase-summary {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40px;
+}
+
+.summary-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 40%;
+  margin-left: 20px;
+  transition: transform 0.3s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+}
+
+.summary-card i {
+  font-size: 36px;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.summary-card h3 {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.summary-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #007bff;
+}
+
+.purchase-content {
+  display: flex;
+  gap: 30px;
+}
+
+.pie-chart-container {
+  flex: 1;
+  max-width: 400px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.purchase-list {
+  flex: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.purchase-item {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  ;
+}
+
+.purchase-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.purchase-header {
+  padding: 20px;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.product-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.purchase-header h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.purchase-type {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.purchase-body {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.purchase-body p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.purchase-price {
+  font-weight: bold;
+  color: #28a745;
+  font-size: 20px;
+}
+
+.purchase-date {
+  font-style: italic;
+  color: #666;
+}
+
+.purchase-renew {
+  color: #dc3545;
+}
+
+@media (max-width: 1024px) {
+  .purchase-content {
+    flex-direction: column;
+  }
+
+  .pie-chart-container {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .purchase-summary {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .summary-card {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .purchase-list {
+    grid-template-columns: 1fr;
+  }
+
+  .purchase-header h3 {
+    font-size: 20px;
+  }
+
+  .purchase-body p {
+    font-size: 14px;
+  }
+}
+
+.summary-card-r {
+  padding-top: 50px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  justify-content: center;
+  width: 45%;
+  transition: transform 0.3s ease;
+  display: flex;
+}
+
+
+.reimbursement-card {
+  width: 100%;
+}
+
+.reimbursement-form {
+  padding-top: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reimbursement-form input {
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.reimbursement-form button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reimbursement-form button:hover {
+  background-color: #0056b3;
+}
+
+
+#popup {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  transition: top 0.5s ease-in-out;
+  min-width: 250px;
+  z-index: 10000;
+  border: 2px solid #3498db;
+}
+
+#popup.show {
+  top: 20px;
+}
+
+#loader {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin-right: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#checkmark {
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+  margin-right: 15px;
+}
+
+#message {
+  color: #333;
+  font-size: 16px;
+}

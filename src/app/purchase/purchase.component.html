@@ -1,0 +1,55 @@
+<body>
+<div class="content-wrapper">
+  <app-header></app-header>
+  <div class="container">
+    <div class="payment-options">
+      <h2>Opzioni di Pagamento</h2>
+      <div class="payment-box">
+        <label>
+          <input type="radio" name="payment" [(ngModel)]="payWithBalance" [value]="true" (change)="toggleCardDetails(false)" [disabled]="balance < productHosted.productAssociated.pricePerUser">
+          Paga con il tuo saldo ( Hai {{balance }} €)
+        </label>
+      </div>
+      <div class="payment-box">
+        <label>
+          <input type="radio" name="payment" [(ngModel)]="payWithBalance" [value]="false" (change)="toggleCardDetails(true)">
+          Aggiungi metodo di pagamento
+        </label>
+        <div id="card-details" [class.show]="showCardDetails">
+          <input type="text" placeholder="Numero carta">
+          <input type="text" placeholder="Nome sulla carta">
+          <input type="text" placeholder="Data di scadenza">
+          <input type="number" placeholder="CVV">
+        </div>
+      </div>
+      <button (click)="completePurchase()">Completa l'acquisto</button>
+    </div>
+    <div class="product-details">
+      <h2>Dettagli ProductHosted</h2>
+      <div class="image-container">
+        <img [src]="getProductImage(productHosted.productAssociated.name)" [alt]="productHosted.productAssociated.name">
+      </div>
+      <div class="product-info">
+        <p>Nome: <span>{{productHosted.productAssociated.name}}</span></p>
+        <p>Tipo: <span>{{productHosted.productAssociated.type}}</span></p>
+        <p>Descrizione: {{productHosted.productAssociated.description}}</p>
+        <p>Hosted by: <span>{{productHosted.hostedBy.email}}</span></p>
+        <p>Prossimo rinnovo: <span>{{renewDate.toISOString().split('T')[0]}}</span></p>
+        <p>Prezzo per utente: <span>{{productHosted.productAssociated.pricePerUser}}€</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="popup" [class.show]="showPopup">
+  <div id="loader" *ngIf="!purchaseCompleted"></div>
+  <div id="checkmark" *ngIf="purchaseCompleted">✓</div>
+  <span id="message">{{ popupMessage }}</span>
+</div>
+
+<div id="popupError" [class.showError]="showPopupError">
+  <div id="checkmark2" *ngIf="sameEmail">✗</div>
+  <span id="message2">{{ popupMessageError }}</span>
+</div>
+
+</body>

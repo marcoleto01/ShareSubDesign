@@ -1,0 +1,43 @@
+
+<header class="header">
+  <div class="header-content">
+    <a href="/" class="logo">ShareSub</a>
+
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/subscriptions">Catalogo</a></li>
+        <li><a href="/products">Hosta un Prodotto</a></li>
+        <li><a >Come funziona?</a></li>
+      </ul>
+    </nav>
+
+
+    <div id="userMenu" class="user-menu" (mouseover)="toggleDropdown()" (mouseleave)="closeDropdown()">
+      <div *ngIf="!logged">
+        <button class="user-button" (click)="loginFunction()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="user-icon">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Login
+        </button>
+      </div>
+      <div *ngIf="logged">
+        <button class="user-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="user-icon">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Utente
+        </button>
+        <ul class="dropdown-menu" id="dropdownMenu" [class.show]="isDropdownOpen">
+          <li><a href="http://localhost:4200/myPurchase" onclick="handleNavigation('/profilo')">Profilo</a></li>
+          <li><a href="http://localhost:4200/manageHostedProducts">I miei Host</a></li>
+          <li ><a href="http://localhost:4200/mySub" >I miei Abbonamenti</a></li>
+          <li (click)="logout()" class="logout-btn"><a>LogOut</a> </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+

@@ -1,0 +1,251 @@
+body, html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding-top: 20px;
+  justify-content: space-between;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 40px auto;
+  background-color: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.payment-options, .product-details {
+  padding: 30px;
+  width: 50%;
+}
+
+h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.payment-box {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.payment-box:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+#card-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out, margin 0.5s ease-out;
+  opacity: 0;
+  margin-top: 0;
+}
+
+#card-details.show {
+  max-height: 500px;
+  opacity: 1;
+  margin-top: 20px;
+}
+
+input[type="text"], input[type="number"] {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #3498db;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 16px;
+  transition: opacity 0.3s ease-out;
+
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+.image-container {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+label input[type="radio"] {
+  margin-right: 10px;
+}
+
+.product-info {
+  margin-bottom: 15px;
+}
+
+.product-info span {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.tag {
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.splash {
+  position: fixed;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+#popup {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  transition: top 0.5s ease-in-out;
+  min-width: 250px;
+  z-index: 10000;
+  border: 2px solid black;
+}
+
+#popup.show {
+  top: 20px;
+}
+
+#popupError {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  transition: top 0.5s ease-in-out;
+  min-width: 250px;
+  z-index: 10000;
+  border: 2px solid black;
+}
+
+#popupError.showError {
+  top: 20px;
+}
+
+#loader {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin-right: 15px;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#checkmark {
+  color: white;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+  margin-right: 15px;
+  display: inline-block;
+}
+
+#message {
+  color: #333;
+  font-size: 16px;
+}
+
+#checkmark2 {
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+  margin-right: 15px;
+  display: inline-block;
+}
+
+#message2 {
+  color: #333;
+  font-size: 16px;
+}
+
+button {
+  font-size: 18px;
+  padding: 12px 24px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}

@@ -1,0 +1,23 @@
+  <app-header></app-header>
+  <div class="container" >
+    <div class="product-grid">
+      <div *ngFor="let product of products" class="product-card" [style.backgroundColor]="getProductColor(product.name)">
+        <div class="initial-content">
+          <div class="product-name">{{ product.name }}</div>
+          <div class="image-container">
+            <img [src]="getProductImage(product.name)"  >
+          </div>
+        </div>
+        <div class="hover-content">
+          <div class="product-name">{{ product.name }}</div>
+          <div class="product-details">
+            <div class="product-detail"><strong>Price:</strong> {{ product.price.toFixed(2) }} € </div>
+            <div class="product-detail"><strong>Description:</strong> {{ product.description }}</div>
+            <div class="product-detail"><strong>Renew Rate:</strong> {{ product.renewRate }}</div>
+            <div class="product-detail"><strong>Price Per User:</strong> {{ product.pricePerUser.toFixed(2) }} € </div>
+          </div>
+          <button class="customize-btn" (click)="creaProduct(product.id)" >Crea il tuo abbonamento</button>
+        </div>
+      </div>
+    </div>
+  </div>

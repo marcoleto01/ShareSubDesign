@@ -1,0 +1,71 @@
+<app-header></app-header>
+<div class="container">
+  <div class="product-box">
+    <div class="image-container">
+      <img [src]="getProductImage(product.name)" [alt]="product.name">
+    </div>
+
+    <h2>{{product.name}}</h2>
+
+    <div class="product-details">
+      <p><strong>Prezzo:</strong> {{product.price.toFixed(2)}} €</p>
+
+      <p><strong>Descrizione:</strong></p>
+      <p>{{product.description}}</p>
+
+      <p><strong>Prezzo per Utente:</strong> {{product.pricePerUser.toFixed(2)}} €</p>
+
+      <p><strong>Tasso di Rinnovo (giorni):</strong> {{product.renewRate}}</p>
+
+      <p><strong>Tipo Abbonamento:</strong> {{product.type}}</p>
+    </div>
+  </div>
+
+  <div class="product-host-details">
+    <h3>Informazioni Host</h3>
+
+    <div class="date-container">
+      <div class="date-item">
+        <label>Data inizio host:</label>
+        <input type="text" [value]="getFormattedDate(today)" readonly>
+      </div>
+
+      <div class="date-item">
+        <label>End Date:</label>
+        <input type="text" [value]="getFormattedDate(renewDate)" readonly>
+      </div>
+    </div>
+
+    <div class="user-selection">
+      <p><strong>User number: </strong></p>
+      <div class="user-icons-container">
+        <mat-icon *ngFor="let num of numbers; let i = index"
+                  [ngClass]="{
+                'selected': selectedUserNumber === num,
+                'illuminated': i < selectedUserNumber
+              }"
+                  (click)="selectUserNumber(num)">person</mat-icon>
+      </div>
+    </div>
+
+    <div class="login-details">
+      <div class="input-group">
+        <label for="username">Username:</label>
+        <input id="username" type="text" [(ngModel)]="username" placeholder="Inserisci username">
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password:</label>
+        <input id="password" type="text" [(ngModel)]="password" placeholder="Inserisci password">
+      </div>
+    </div>
+
+    <button (click)="createProductHosted()">Crea Subscription</button>
+  </div>
+
+  <div id="popup" [class.show]="showPopup">
+    <div id="checkmark" *ngIf="purchaseCompleted">✓</div>
+    <span id="message">{{ popupMessage }}</span>
+  </div>
+</div>
+
